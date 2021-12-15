@@ -13,3 +13,6 @@ docker run -d -it --network MyBridgedNetwork --mount source=bdd,destination=/bdd
 docker volume create blockchain
 docker build -t eth_node ./eth_node
 docker run -d -it --network BCNetwork --mount source=blockchain,destination=/blockchain --name eth_node eth_node
+
+# Part for docker-compose
+docker-compose up -d --build
