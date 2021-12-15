@@ -1,0 +1,15 @@
+# Creating the networks
+docker network create -d bridge --subnet=172.1.1.0/24 MyBridgedNetwork
+docker network create -d bridge --subnet=172.2.2.0/24 BCNetwork
+
+# Part of the web server
+docker run -d -it --network MyBridgedNetwork --name web nginx 
+
+# Part for mongo
+docker volume create bdd
+docker run -d -it --network MyBridgedNetwork --mount source=bdd,destination=/bdd --name db mongo:4.2.2
+
+# Part for the ether node
+docker volume create blockchain
+docker build -t eth_node ./eth_node
+docker run -d -it --network BCNetwork --mount source=blockchain,destination=/blockchain --name eth_node eth_node
