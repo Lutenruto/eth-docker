@@ -14,5 +14,10 @@ docker volume create blockchain
 docker build -t eth_node ./eth_node
 docker run -d -it --network BCNetwork --mount source=blockchain,destination=/blockchain --name eth_node eth_node
 
+#Part for push image into Docker Hub
+docker tag eth_node lutenruto/my_eth_node:eth_node
+docker push lutenruto/my_eth_node:eth_node
+lien vers repo DockerHub : https://hub.docker.com/repository/docker/lutenruto/my_eth_node
+
 # Part for docker-compose
 docker-compose up -d --build
